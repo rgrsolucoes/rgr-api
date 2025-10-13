@@ -65,15 +65,23 @@ export class UserService {
     return userWithoutPassword;
   }
 
-  static async getUsersByCompany(companyId: number, page: number = 1, limit: number = 50) {
+  static async getUsersByCompany(
+    companyId: number, 
+    page: number = 1, 
+    limit: number = 50,
+    filters?: {
+      search?: string;
+      sortBy?: string;
+      sortOrder?: 'ASC' | 'DESC';
+    }
+  ) {
     const offset = (page - 1) * limit;
     
     const [users, total] = await Promise.all([
-      UserModel.findAllByCompany(companyId, limit, offset),
-      UserModel.countByCompany(companyId)
+      UserModel.findAllByCompany(companyId, limit, offset, filters),
+      UserModel.countByCompany(companyId, filters?.search)
     ]);
 
-    // Remove passwords from response
     const usersWithoutPasswords = users.map(user => {
       const { cp064, ...userWithoutPassword } = user;
       return userWithoutPassword;

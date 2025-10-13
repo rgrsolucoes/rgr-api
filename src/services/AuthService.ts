@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import { UserModel } from '../models/User';
 import { LoginRequest, JwtPayload } from '../types';
 import { config } from '../config/env';
+import { TokenBlacklistModel } from '../models/TokenBlacklist';
 
 export class AuthService {
   
@@ -103,5 +104,9 @@ export class AuthService {
 
   static async hashPassword(password: string): Promise<string> {
     return bcrypt.hash(password, config.BCRYPT_ROUNDS);
+  }
+
+  static async blacklistToken(token: string, userLogin: string, expiresAt: Date): Promise<void> {
+    await TokenBlacklistModel.addToken(token, userLogin, expiresAt);
   }
 }

@@ -12,6 +12,16 @@ export class AuthController {
 
       const result = await AuthService.login(loginData);
 
+      const AuditLogModel = require('../models/AuditLog').AuditLogModel;
+      await AuditLogModel.create({
+        user_login: result.user.cp050,
+        company_id: result.user.cp010,
+        action: 'login',
+        resource: 'auth',
+        ip_address: req.ip || req.socket.remoteAddress,
+        user_agent: req.headers['user-agent']
+      }).catch((err: Error) => logger.error('Failed to log login audit', err));
+
       logger.info(`User ${loginData.login} logged in successfully`);
       
       res.json(createSuccessResponse('Login successful', result));
@@ -64,8 +74,27 @@ export class AuthController {
     }
   }
 
-  static async logout(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  static async logout(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
+      const authHeader = req.headers.authorization;
+      
+      if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        res.status(401).json(createErrorResponse('Access token is required'));
+        return;
+      }
+
+      const token = authHeader.substring(7);
+      
+      // Decode token to get expiration and user info
+      const jwt = require('jsonwebtoken');
+      const decoded = jwt.decode(token) as any;
+      
+      if (decoded && decoded.exp) {
+        const expiresAt = new Date(decoded.exp * 1000);
+        await AuthService.blacklistToken(token, decoded.cp050, expiresAt);
+      }
+      
+      logger.info(`User ${decoded?.cp050} logged out successfully`);
       res.json(createSuccessResponse('Logout successful'));
     } catch (error) {
       next(error);

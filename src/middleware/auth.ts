@@ -3,6 +3,7 @@ import { AuthService } from '../services/AuthService';
 import { AuthenticatedRequest } from '../types';
 import { createErrorResponse } from '../utils/response';
 import logger from '../utils/logger';
+import { TokenBlacklistModel } from '../models/TokenBlacklist';
 
 export const authenticateToken = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
@@ -14,6 +15,13 @@ export const authenticateToken = async (req: Request, res: Response, next: NextF
     }
 
     const token = authHeader.substring(7);
+    
+    // Check if token is blacklisted
+    const isBlacklisted = await TokenBlacklistModel.isBlacklisted(token);
+    if (isBlacklisted) {
+      res.status(401).json(createErrorResponse('Token has been revoked'));
+      return;
+    }
     
     const decoded = await AuthService.verifyToken(token);
     

@@ -105,11 +105,25 @@ export class UserController {
       const companyId = authenticatedReq.user!.cp010;
       
       const page = parseInt(req.query['page'] as string) || 1;
-      const limit = Math.min(parseInt(req.query['limit'] as string) || 50, 100); // Max 100 per page
+      const limit = Math.min(parseInt(req.query['limit'] as string) || 50, 100);
+      const search = req.query['search'] as string;
+      const sortBy = req.query['sortBy'] as string;
+      const sortOrder = (req.query['sortOrder'] as 'ASC' | 'DESC') || 'DESC';
 
-      const result = await UserService.getUsersByCompany(companyId, page, limit);
+      const result = await UserService.getUsersByCompany(companyId, page, limit, {
+        search,
+        sortBy,
+        sortOrder
+      });
 
-      res.json(createSuccessResponse('Users retrieved successfully', result));
+      res.json(createSuccessResponse('Users retrieved successfully', {
+        ...result,
+        filters: {
+          search,
+          sortBy,
+          sortOrder
+        }
+      }));
     } catch (error) {
       logger.error(`Users retrieval failed: ${error}`);
       res.status(400).json(createErrorResponse('Users retrieval failed', [error instanceof Error ? error.message : 'Unknown error']));

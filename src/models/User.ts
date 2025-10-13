@@ -115,11 +115,35 @@ export class UserModel {
     }
   }
 
-  static async findAllByCompany(companyId: number, limit: number = 50, offset: number = 0): Promise<User[]> {
+  static async findAllByCompany(
+    companyId: number, 
+    limit: number = 50, 
+    offset: number = 0,
+    filters?: {
+      search?: string;
+      sortBy?: string;
+      sortOrder?: 'ASC' | 'DESC';
+    }
+  ): Promise<User[]> {
     try {
+      const params: any[] = [companyId];
+      let whereClause = 'WHERE cp010 = ?';
+      
+      if (filters?.search) {
+        whereClause += ' AND cp050 LIKE ?';
+        params.push(`%${filters.search}%`);
+      }
+      
+      const sortBy = filters?.sortBy || 'created_at';
+      const sortOrder = filters?.sortOrder || 'DESC';
+      const allowedSortFields = ['cp050', 'cp010', 'created_at', 'updated_at'];
+      const allowedSortOrders = ['ASC', 'DESC'];
+      const orderBy = allowedSortFields.includes(sortBy) ? sortBy : 'created_at';
+      const validSortOrder = allowedSortOrders.includes(sortOrder) ? sortOrder : 'DESC';
+      
       const [rows] = await pool.execute<RowDataPacket[]>(
-        'SELECT cp050, cp010, created_at, updated_at FROM Tb004 WHERE cp010 = ? ORDER BY created_at DESC LIMIT ? OFFSET ?',
-        [companyId, limit, offset]
+        `SELECT cp050, cp010, created_at, updated_at FROM Tb004 ${whereClause} ORDER BY ${orderBy} ${validSortOrder} LIMIT ? OFFSET ?`,
+        [...params, limit, offset]
       );
       
       return rows as User[];
@@ -128,14 +152,22 @@ export class UserModel {
     }
   }
 
-  static async countByCompany(companyId: number): Promise<number> {
+  static async countByCompany(companyId: number, search?: string): Promise<number> {
     try {
+      const params: any[] = [companyId];
+      let whereClause = 'WHERE cp010 = ?';
+      
+      if (search) {
+        whereClause += ' AND cp050 LIKE ?';
+        params.push(`%${search}%`);
+      }
+      
       const [rows] = await pool.execute<RowDataPacket[]>(
-        'SELECT COUNT(*) as total FROM Tb004 WHERE cp010 = ?',
-        [companyId]
+        `SELECT COUNT(*) as total FROM Tb004 ${whereClause}`,
+        params
       );
       
-      return (rows[0] as any).total;
+      return (rows[0] as any)['total'];
     } catch (error) {
       throw new Error(`Error counting users by company: ${error}`);
     }

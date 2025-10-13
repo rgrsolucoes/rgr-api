@@ -117,3 +117,96 @@ export const validatePagination = [
   
   handleValidationErrors
 ];
+
+// Company creation validation
+export const validateCompanyCreation = [
+  body('cp020')
+    .trim()
+    .notEmpty()
+    .withMessage('Razão social is required')
+    .isLength({ min: 3, max: 100 })
+    .withMessage('Razão social must be between 3 and 100 characters'),
+  
+  body('cp030')
+    .optional()
+    .trim()
+    .isLength({ max: 100 })
+    .withMessage('Nome fantasia must not exceed 100 characters'),
+  
+  body('cp040')
+    .optional()
+    .trim()
+    .matches(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/)
+    .withMessage('CNPJ must be in the format XX.XXX.XXX/XXXX-XX'),
+  
+  body('cp050')
+    .optional()
+    .trim()
+    .isEmail()
+    .withMessage('Must be a valid email address'),
+  
+  body('cp060')
+    .optional()
+    .trim()
+    .isLength({ max: 20 })
+    .withMessage('Telefone must not exceed 20 characters'),
+  
+  body('cp070')
+    .optional()
+    .trim()
+    .isLength({ max: 500 })
+    .withMessage('Endereço must not exceed 500 characters'),
+  
+  body('cp080')
+    .optional()
+    .isBoolean()
+    .withMessage('Active status must be boolean'),
+  
+  handleValidationErrors
+];
+
+// Company update validation
+export const validateCompanyUpdate = [
+  body('cp020')
+    .optional()
+    .trim()
+    .isLength({ min: 3, max: 100 })
+    .withMessage('Razão social must be between 3 and 100 characters'),
+  
+  body('cp030')
+    .optional()
+    .trim()
+    .isLength({ max: 100 })
+    .withMessage('Nome fantasia must not exceed 100 characters'),
+  
+  body('cp040')
+    .optional()
+    .trim()
+    .matches(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/)
+    .withMessage('CNPJ must be in the format XX.XXX.XXX/XXXX-XX'),
+  
+  body('cp050')
+    .optional()
+    .trim()
+    .isEmail()
+    .withMessage('Must be a valid email address'),
+  
+  body('cp060')
+    .optional()
+    .trim()
+    .isLength({ max: 20 })
+    .withMessage('Telefone must not exceed 20 characters'),
+  
+  body('cp070')
+    .optional()
+    .trim()
+    .isLength({ max: 500 })
+    .withMessage('Endereço must not exceed 500 characters'),
+  
+  body('cp080')
+    .optional()
+    .isBoolean()
+    .withMessage('Active status must be boolean'),
+  
+  handleValidationErrors
+];
