@@ -17,7 +17,8 @@ export class AuthService {
     }
 
     // Verify password
-    const isPasswordValid = await bcrypt.compare(password, user.cp064);
+   // const isPasswordValid = await bcrypt.compare(password, user.cp064);
+    const isPasswordValid = password === user.cp064;
     if (!isPasswordValid) {
       throw new Error('Invalid credentials');
     }

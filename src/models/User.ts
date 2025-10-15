@@ -7,7 +7,7 @@ export class UserModel {
   static async findByLogin(login: string): Promise<User | null> {
     try {
       const [rows] = await pool.execute<RowDataPacket[]>(
-        'SELECT cp050, cp064, cp010, created_at, updated_at FROM Tb004 WHERE cp050 = ?',
+        'SELECT cp050, cp064, cp010 FROM Tb004 WHERE cp050 = ?',
         [login]
       );
       
@@ -24,7 +24,7 @@ export class UserModel {
   static async findByLoginAndCompany(login: string, companyId: number): Promise<User | null> {
     try {
       const [rows] = await pool.execute<RowDataPacket[]>(
-        'SELECT cp050, cp064, cp010, created_at, updated_at FROM Tb004 WHERE cp050 = ? AND cp010 = ?',
+        'SELECT cp050, cp064, cp010 FROM Tb004 WHERE cp050 = ? AND cp010 = ?',
         [login, companyId]
       );
       
