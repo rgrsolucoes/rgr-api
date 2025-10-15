@@ -1,6 +1,7 @@
 export interface User {
   cp050: string; // login
   cp064: string; // password
+  cp064acc: string; // password
   cp010: number; // company_id
   created_at?: Date;
   updated_at?: Date;
