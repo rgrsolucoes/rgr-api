@@ -13,7 +13,7 @@ app.use(helmet());
 
 // CORS configuration
 app.use(cors({
-  origin: config.ALLOWED_ORIGINS || '*',
+  origin: config.ALLOWED_ORIGINS || 'https://rgr-frontend.replit.app',
   credentials: true
 }));
 

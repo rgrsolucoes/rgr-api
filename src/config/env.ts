@@ -6,6 +6,7 @@ export const config = {
   // Server configuration
   PORT: parseInt(process.env['PORT'] || '5000'),
   NODE_ENV: process.env['NODE_ENV'] || 'development',
+  
   ALLOWED_ORIGINS: process.env['ALLOWED_ORIGINS'],
 
   // JWT configuration
