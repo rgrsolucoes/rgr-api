@@ -2,6 +2,7 @@ import { Router } from 'express';
 import authRoutes from './auth';
 import userRoutes from './users';
 import companyRoutes from './companies';
+import personRoutes from './persons';
 import { config } from '../config/env';
 
 const router = Router();
@@ -17,6 +18,7 @@ router.get('/', (_req, res) => {
       auth: '/api/auth',
       users: '/api/users',
       companies: '/api/companies',
+      persons: '/api/persons',
       health: '/health'
     },
     documentation: {
@@ -36,7 +38,14 @@ router.get('/', (_req, res) => {
       updateCompany: 'PUT /api/companies/:id',
       deleteCompany: 'DELETE /api/companies/:id',
       deactivateCompany: 'PATCH /api/companies/:id/deactivate',
-      activateCompany: 'PATCH /api/companies/:id/activate'
+      activateCompany: 'PATCH /api/companies/:id/activate',
+      persons: 'GET /api/persons',
+      createPerson: 'POST /api/persons',
+      getPerson: 'GET /api/persons/:id',
+      updatePerson: 'PUT /api/persons/:id',
+      deletePerson: 'DELETE /api/persons/:id',
+      activatePerson: 'PATCH /api/persons/:id/activate',
+      deactivatePerson: 'PATCH /api/persons/:id/deactivate'
     }
   });
 });
@@ -45,5 +54,6 @@ router.get('/', (_req, res) => {
 router.use('/auth', authRoutes);
 router.use('/users', userRoutes);
 router.use('/companies', companyRoutes);
+router.use('/persons', personRoutes);
 
 export default router;

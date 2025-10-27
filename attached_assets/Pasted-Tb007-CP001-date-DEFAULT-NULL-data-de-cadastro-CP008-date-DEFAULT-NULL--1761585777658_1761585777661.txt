@@ -1,0 +1,70 @@
+Tb007` (
+  `CP001` date DEFAULT NULL,          // data de cadastro
+  `CP008` date DEFAULT NULL,          // data de nascimento
+  `CP010` int(11) NOT NULL DEFAULT '0', // id da empresa
+  `CP011` int(11) NOT NULL,            // id da filial
+  `CP018` int(11) NOT NULL AUTO_INCREMENT,  // id
+  `CP019` int(11) DEFAULT '1',              // id categoria
+  `CP020` char(1) NOT NULL DEFAULT '1',     // id tipo pessoa  (1- pessoa física, 2 - pessoa jurídica)
+  `CP021` int(11) NOT NULL DEFAULT '3',     // id conceito
+  `CP023` int(11) DEFAULT NULL,            // id atendente
+  `CP024` varchar(50) DEFAULT NULL,        // cod. referencia
+  `CP028` varchar(30) DEFAULT NULL,        // cpf
+  `CP030` varchar(30) DEFAULT NULL,        // cnpj
+  `CP031` varchar(100) DEFAULT NULL,       // telefone
+  `CP032` varchar(30) DEFAULT NULL,        // celular
+  `CP034` varchar(15) DEFAULT NULL,        // cep
+  `CP036` varchar(50) DEFAULT NULL,        // inscricao municipal
+  `CP037` varchar(50) DEFAULT NULL,        // inscricao estadual
+  `CP046` varchar(50) NOT NULL DEFAULT '9', // nome estado
+  `CP047` varchar(100) DEFAULT NULL,        // endereço
+  `CP590` varchar(10) DEFAULT NULL,         // numero endereco
+  `CP627` varchar(50) DEFAULT NULL,         // complemento de endereço
+  `CP048` varchar(50) DEFAULT NULL,         // cidade
+  `CP049` varchar(50) DEFAULT NULL,         // bairro
+  `CP051` varchar(200) DEFAULT NULL,        // nome
+  `CP052` varchar(150) DEFAULT NULL,        // contato
+  `CP053` varchar(50) DEFAULT NULL,         // nome do pai
+  `CP054` varchar(50) DEFAULT NULL,         // nome da mae
+  `CP055` varchar(50) DEFAULT NULL,         // nome conjuge
+  `CP056` varchar(50) DEFAULT NULL,         // profissao
+  `CP057` varchar(50) DEFAULT NULL,         // trabalho
+  `CP063` char(2) DEFAULT NULL,             // UF
+  `CP065` varchar(250) DEFAULT NULL,        // SITE
+  `CP066` varchar(50) DEFAULT NULL,         // email
+  `CP136` int(11) DEFAULT '1',              // id status (1 - ativo, 2 - inativo)
+  `CP163` int(11) DEFAULT '3',              // sexo (1-masculino, 2 - feminino, 3 - outros)
+  `CP165` longtext,                         // link para foto (upload)
+  `CP166` varchar(30) DEFAULT NULL,         // RG
+  `CP167` varchar(20) DEFAULT NULL,         // RG emissor
+  `CP330` varchar(50) DEFAULT NULL,         // NATURALIDADE
+  `CP152` int(11) DEFAULT NULL,             // escolaridade
+  `CP608` int(11) DEFAULT NULL,             // id transportadora
+  `CP634` varchar(20) DEFAULT NULL,         // codigo suframa
+  `CP058` longtext,                         // observações
+  `CP268` int(11) NOT NULL DEFAULT '0',     // id condição de pagamento
+  `CP757` int(11) DEFAULT '2',              // codigo simples nacional (1-regime normal,2-optante do simples nacional,3- consumidor final)
+  `CP767` varchar(100) DEFAULT NULL,        // CNH
+  `CP768` date DEFAULT NULL,                // data expiracao cnh
+  `CP769` date DEFAULT NULL,                // data expedicao RG
+  `CP771` int(11) DEFAULT '2',              // flag para bloqueio de vendas
+  `CP168` varchar(150) DEFAULT NULL,       // nome do responsavel
+  `CP028RESP` varchar(15) DEFAULT NULL,    // cpf responsavel financeiro
+  `CP028PAI` varchar(45) DEFAULT NULL,     // cpf do pai
+  `CP028MAE` varchar(45) DEFAULT NULL,     // cpf da mae
+  `CP031PAI` varchar(45) DEFAULT NULL,     // fone do pai
+  `CP031MAE` varchar(45) DEFAULT NULL,     // fone da mae
+  `CP372` datetime DEFAULT NULL,           // data de atualizacao
+  `CP373` int(11) DEFAULT NULL,            // id usuario responsavel
+  `CP780` varchar(45) DEFAULT NULL,        // numero carteira de trabalho
+  `CP852` varchar(45) DEFAULT NULL,        // numero titulo de eleitor
+  `CP066nfe` varchar(250) DEFAULT NULL,    // email nfe
+  `CP165_SITE` varchar(145) DEFAULT NULL,  // link foto pessoal                 `
+  `CP899` int(11) NOT NULL DEFAULT '0',    // cbo (Cod. Brasileiro Ocupação)
+  `CP266` int(11) NOT NULL DEFAULT '0',    // id forma de pagamento
+  `CP002` date DEFAULT NULL,              // data de cadastro
+  `CP065F` varchar(45) DEFAULT NULL,      // link facebook
+  `CP065I` varchar(45) DEFAULT NULL,      // link instagram
+  `CP909` int(10) unsigned DEFAULT NULL,  // id rede
+  `CP907` int(10) unsigned DEFAULT NULL,  // id rota
+  `CP166CRM` varchar(45) DEFAULT NULL,    // numero crm medico
