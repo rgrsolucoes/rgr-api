@@ -31,6 +31,10 @@ waitForPort = 5000
 localPort = 5000
 externalPort = 80
 
+[[ports]]
+localPort = 45179
+externalPort = 3000
+
 [deployment]
 build = ["sh", "-c", "tsc"]
 run = ["sh", "-c", "node dist/server.js"]

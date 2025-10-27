@@ -6,6 +6,9 @@ RGR-API is a REST API for a SaaS management system designed for small and medium
 
 ## Recent Changes
 
+### October 27, 2025
+- **Person Management Module**: Complete CRUD for physical and legal persons (Tb007 table with 60+ fields). Includes CPF/CNPJ validation with checksum verification, document type enforcement (CPF for física, CNPJ for jurídica), duplicate prevention, activation/deactivation, and advanced filtering (search, person type, status, sorting, pagination). Multi-tenant isolation enforced by stripping CP010/CP018 from updates.
+
 ### October 13, 2025
 - **Token Blacklist System**: Implemented proper logout functionality with database-backed token blacklist (Tb_Token_Blacklist table). Middleware now validates tokens against blacklist on each request.
 - **Company Management Module**: Complete CRUD operations for companies (Tb003/Tb_Empresa table) with activation/deactivation features. Service layer enforces business logic.
