@@ -110,6 +110,26 @@ export class PersonController {
     }
   }
 
+  static async findByName(req: Request, res: Response, _next: NextFunction): Promise<void> {
+    try {
+      const authenticatedReq = req as unknown as AuthenticatedRequest;
+      const companyId = authenticatedReq.user!.cp010;
+      const name = req.query['name'] as string;
+
+      if (!name) {
+        res.status(400).json(createErrorResponse('Name parameter is required', ['Please provide a name to search']));
+        return;
+      }
+
+      const persons = await PersonService.findPersonsByName(name, companyId);
+
+      res.json(createSuccessResponse('Persons found successfully', { persons, count: persons.length }));
+    } catch (error) {
+      logger.error(`Person search by name failed: ${error}`);
+      res.status(400).json(createErrorResponse('Person search failed', [error instanceof Error ? error.message : 'Unknown error']));
+    }
+  }
+
   static async getPersons(req: Request, res: Response, _next: NextFunction): Promise<void> {
     try {
       const authenticatedReq = req as unknown as AuthenticatedRequest;

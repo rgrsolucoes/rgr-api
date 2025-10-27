@@ -129,6 +129,14 @@ export class PersonService {
     return person;
   }
 
+  static async findPersonsByName(name: string, companyId: number) {
+    if (!name || name.trim().length === 0) {
+      throw new Error('Name is required for search');
+    }
+
+    return await PersonModel.findByName(name.trim(), companyId);
+  }
+
   static async activatePerson(id: number, companyId: number) {
     const person = await PersonModel.findById(id, companyId);
     if (!person) {

@@ -14,6 +14,13 @@ router.get(
 );
 
 router.get(
+  '/search/name',
+  authenticateToken,
+  requirePermission('persons', 'read'),
+  PersonController.findByName
+);
+
+router.get(
   '/:id',
   authenticateToken,
   requirePermission('persons', 'read'),

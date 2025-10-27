@@ -55,6 +55,19 @@ export class PersonModel {
     }
   }
 
+  static async findByName(name: string, companyId: number): Promise<Person[]> {
+    try {
+      const [rows] = await pool.execute<RowDataPacket[]>(
+        'SELECT * FROM Tb007 WHERE CP051 LIKE ? AND CP010 = ? ORDER BY CP051 ASC',
+        [`%${name}%`, companyId]
+      );
+      
+      return rows as Person[];
+    } catch (error) {
+      throw new Error(`Error finding person by name: ${error}`);
+    }
+  }
+
   static async create(personData: PersonCreateInput): Promise<Person> {
     try {
       const fields: string[] = [];

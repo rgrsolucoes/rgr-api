@@ -42,6 +42,7 @@ router.get('/', (_req, res) => {
       persons: 'GET /api/persons',
       createPerson: 'POST /api/persons',
       getPerson: 'GET /api/persons/:id',
+      findPersonByName: 'GET /api/persons/search/name?name=:name',
       updatePerson: 'PUT /api/persons/:id',
       deletePerson: 'DELETE /api/persons/:id',
       activatePerson: 'PATCH /api/persons/:id/activate',
