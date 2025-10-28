@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { PersonController } from '../controllers/PersonController';
 import { authenticateToken } from '../middleware/auth';
-import { requirePermission } from '../middleware/permissions';
+//import { requirePermission } from '../middleware/permissions';
 import { auditLog } from '../middleware/audit';
 
 const router = Router();
