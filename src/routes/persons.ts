@@ -9,28 +9,28 @@ const router = Router();
 router.get(
   '/',
   authenticateToken,
-  requirePermission('persons', 'read'),
+ // requirePermission('persons', 'read'),
   PersonController.getPersons
 );
 
 router.get(
   '/search/name',
   authenticateToken,
-  requirePermission('persons', 'read'),
+//  requirePermission('persons', 'read'),
   PersonController.findByName
 );
 
 router.get(
   '/:id',
   authenticateToken,
-  requirePermission('persons', 'read'),
+ // requirePermission('persons', 'read'),
   PersonController.getPerson
 );
 
 router.post(
   '/',
   authenticateToken,
-  requirePermission('persons', 'create'),
+//  requirePermission('persons', 'create'),
   PersonController.validateCreate,
   auditLog('persons'),
   PersonController.createPerson
@@ -39,7 +39,7 @@ router.post(
 router.put(
   '/:id',
   authenticateToken,
-  requirePermission('persons', 'update'),
+//  requirePermission('persons', 'update'),
   PersonController.validateUpdate,
   auditLog('persons'),
   PersonController.updatePerson
@@ -48,7 +48,7 @@ router.put(
 router.delete(
   '/:id',
   authenticateToken,
-  requirePermission('persons', 'delete'),
+//  requirePermission('persons', 'delete'),
   auditLog('persons'),
   PersonController.deletePerson
 );
@@ -56,7 +56,7 @@ router.delete(
 router.patch(
   '/:id/activate',
   authenticateToken,
-  requirePermission('persons', 'update'),
+//  requirePermission('persons', 'update'),
   auditLog('persons'),
   PersonController.activatePerson
 );
@@ -64,7 +64,7 @@ router.patch(
 router.patch(
   '/:id/deactivate',
   authenticateToken,
-  requirePermission('persons', 'update'),
+ // requirePermission('persons', 'update'),
   auditLog('persons'),
   PersonController.deactivatePerson
 );
